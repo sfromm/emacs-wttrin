@@ -2,18 +2,15 @@
 
 Emacs frontend for weather web service [wttr.in].
 
-wttrin.el provides the weather information from wttr.in based on your
-query condition.
-
 ## Usage
 
-Set variable `wttrin-query`:
+Set a default cities list for completion:
 
 ```elisp
-(defvar wttrin-query "Taipei")
+(setq wttrin-default-cities ("Taipei" "Tainan"))
 ```
 
-Run `M-x wttrin-exec` to get the information:
+Then run `M-x wttrin` to get the information.
 
 ![screenshot]
 
