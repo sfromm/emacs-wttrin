@@ -38,8 +38,7 @@
 (defun wttrin-exec ()
   "Display weather information."
   (interactive)
-  (let* ((name (generate-new-buffer-name (concat "wttr.in - " wttrin-query)))
-         (buf (get-buffer-create name)))
+  (let ((buf (get-buffer-create (format "*wttr.in - %s*" wttrin-query))))
     (switch-to-buffer buf))
   (insert (xterm-color-filter (wttrin-fetch wttrin-query)))
   (goto-char (point-min))
