@@ -2,7 +2,8 @@
 ;; Copyright (C) 2016 Carl X. Su
 
 ;; Author: Carl X. Su <bcbcarl@gmail.com>
-;; Version: 0.1.0
+;;         ono hiroko (kuanyui) <azazabc123@gmail.com>
+;; Version: 0.2.0
 ;; Package-Requires: ((emacs "24.4") (xterm-color "20150823.646"))
 ;; Keywords: comm, weather, wttrin
 ;; URL: https://github.com/bcbcarl/emacs-wttrin
