@@ -42,6 +42,9 @@
          (buf (get-buffer-create name)))
     (switch-to-buffer buf))
   (insert (xterm-color-filter (wttrin-fetch wttrin-query)))
+  (goto-char (point-min))
+  (re-search-forward "^$")
+  (delete-region (point-min) (1+ (point)))
   (setq buffer-read-only t))
 
 (provide 'wttrin)
