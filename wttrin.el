@@ -34,6 +34,16 @@
          (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
+(defun wttrin-query (city-name)
+  "Query weather of CITY-NAME via wttrin, and display the result
+in another buffer."
+  (let ((buf (get-buffer-create (format "*wttr.in - %s*" city-name))))
+    (switch-to-buffer buf)
+    (insert (xterm-color-filter (wttrin-fetch-raw-string city-name)))
+    (goto-char (point-min))
+    (re-search-forward "^$")
+    (delete-region (point-min) (1+ (point)))
+    (setq buffer-read-only t)))
 
 (defun wttrin (&optional force-ask)
   "Display weather information.
@@ -42,14 +52,9 @@ Add C-u prefix to force to ask city name."
   (let* ((ask? (or current-prefix-arg force-ask))
          (city-name (if ask?
                         (read-from-minibuffer "City name: ")
-                      (or wttring-default-city (read-from-minibuffer "City name: "))))
-         (buf (get-buffer-create (format "*wttr.in - %s*" city-name))))
-    (switch-to-buffer buf)
-    (insert (xterm-color-filter (wttrin-fetch-raw-string city-name)))
-    (goto-char (point-min))
-    (re-search-forward "^$")
-    (delete-region (point-min) (1+ (point)))
-    (setq buffer-read-only t)))
+                      (or wttring-default-city (read-from-minibuffer "City name: ")))))
+    (wttrin-query city-name)))
+
 
 (provide 'wttrin)
 
