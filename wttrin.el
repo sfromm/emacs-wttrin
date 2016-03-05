@@ -21,7 +21,7 @@
   :group 'comm)
 
 (defcustom wttring-default-city "Taipei"
-  "Specify a query condition to get the weather information."
+  "Specify a defauly city to get the weather information."
   :group 'wttrin
   :type 'string)
 
@@ -37,13 +37,16 @@
 (defun wttrin-query (city-name)
   "Query weather of CITY-NAME via wttrin, and display the result
 in another buffer."
-  (let ((buf (get-buffer-create (format "*wttr.in - %s*" city-name))))
-    (switch-to-buffer buf)
-    (insert (xterm-color-filter (wttrin-fetch-raw-string city-name)))
-    (goto-char (point-min))
-    (re-search-forward "^$")
-    (delete-region (point-min) (1+ (point)))
-    (setq buffer-read-only t)))
+  (let ((raw-string (wttrin-fetch-raw-string city-name)))
+    (if (string-match "ERROR" raw-string)
+        (message "Cannot get weather data. Maybe you inputed a wrong city name?")
+      (let ((buffer (get-buffer-create (format "*wttr.in - %s*" city-name))))
+        (switch-to-buffer buffer)
+        (insert (xterm-color-filter raw-string))
+        (goto-char (point-min))
+        (re-search-forward "^$")
+        (delete-region (point-min) (1+ (point)))
+        (setq buffer-read-only t)))))
 
 (defun wttrin (&optional force-ask)
   "Display weather information.
