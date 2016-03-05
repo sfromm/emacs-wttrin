@@ -44,6 +44,8 @@
         (message "Cannot get weather data. Maybe you inputed a wrong city name?")
       (let ((buffer (get-buffer-create (format "*wttr.in - %s*" city-name))))
         (switch-to-buffer buffer)
+        (setq buffer-read-only nil)
+        (delete-region (point-min) (point-max))
         (insert (xterm-color-filter raw-string))
         (goto-char (point-min))
         (re-search-forward "^$")
