@@ -20,31 +20,36 @@
   :prefix "wttrin-"
   :group 'comm)
 
-(defcustom wttrin-query "Taipei"
+(defcustom wttring-default-city "Taipei"
   "Specify a query condition to get the weather information."
   :group 'wttrin
   :type 'string)
 
-(defun wttrin-fetch (query)
+(defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
   (let ((url-request-extra-headers '(("User-Agent" . "curl"))))
     (with-current-buffer
-      (url-retrieve-synchronously
-        (concat "http://wttr.in/" query)
-        (lambda (status) (switch-to-buffer (current-buffer))))
+        (url-retrieve-synchronously
+         (concat "http://wttr.in/" query)
+         (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
 
-(defun wttrin ()
-  "Display weather information."
+(defun wttrin (&optional force-ask)
+  "Display weather information.
+Add C-u prefix to force to ask city name."
   (interactive)
-  (let ((buf (get-buffer-create (format "*wttr.in - %s*" wttrin-query))))
-    (switch-to-buffer buf))
-  (insert (xterm-color-filter (wttrin-fetch wttrin-query)))
-  (goto-char (point-min))
-  (re-search-forward "^$")
-  (delete-region (point-min) (1+ (point)))
-  (setq buffer-read-only t))
+  (let* ((ask? (or current-prefix-arg force-ask))
+         (city-name (if ask?
+                        (read-from-minibuffer "City name: ")
+                      (or wttring-default-city (read-from-minibuffer "City name: "))))
+         (buf (get-buffer-create (format "*wttr.in - %s*" city-name))))
+    (switch-to-buffer buf)
+    (insert (xterm-color-filter (wttrin-fetch-raw-string city-name)))
+    (goto-char (point-min))
+    (re-search-forward "^$")
+    (delete-region (point-min) (1+ (point)))
+    (setq buffer-read-only t)))
 
 (provide 'wttrin)
 
