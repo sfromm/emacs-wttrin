@@ -35,7 +35,7 @@
       (decode-coding-string (buffer-string) 'utf-8))))
 
 
-(defun wttrin-exec ()
+(defun wttrin ()
   "Display weather information."
   (interactive)
   (let ((buf (get-buffer-create (format "*wttr.in - %s*" wttrin-query))))

@@ -13,7 +13,7 @@ Set variable `wttrin-query`:
 (defvar wttrin-query "Taipei")
 ```
 
-Run `M-x wttrin-exec` to get the information:
+Run `M-x wttrin` to get the information:
 
 ![screenshot]
 
