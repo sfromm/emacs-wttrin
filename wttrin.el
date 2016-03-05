@@ -12,40 +12,47 @@
 ;; Provides the weather information from wttr.in based on your query condition.
 
 ;;; Code:
+
 (require 'url)
 (require 'xterm-color)
+(require 'ido)
 
 (defgroup wttrin nil
   "Emacs frontend for weather web service wttr.in."
   :prefix "wttrin-"
   :group 'comm)
 
-(defcustom wttrin-query "Taipei"
-  "Specify a query condition to get the weather information."
+(defcustom wttrin-default-cities '("Taipei" "Keelung" "Taichung" "Tainan")
+  "Specify default cities list for quick completion."
   :group 'wttrin
-  :type 'string)
+  :type 'list)
 
-(defun wttrin-fetch (query)
+(defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
   (let ((url-request-extra-headers '(("User-Agent" . "curl"))))
     (with-current-buffer
-      (url-retrieve-synchronously
-        (concat "http://wttr.in/" query)
-        (lambda (status) (switch-to-buffer (current-buffer))))
+        (url-retrieve-synchronously
+         (concat "http://wttr.in/" query)
+         (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
+(defun wttrin-query (city-name)
+  "Query weather of CITY-NAME via wttrin, and display the result in new buffer."
+  (let ((raw-string (wttrin-fetch-raw-string city-name)))
+    (if (string-match "ERROR" raw-string)
+        (message "Cannot get weather data. Maybe you inputed a wrong city name?")
+      (let ((buffer (get-buffer-create (format "*wttr.in - %s*" city-name))))
+        (switch-to-buffer buffer)
+        (insert (xterm-color-filter raw-string))
+        (goto-char (point-min))
+        (re-search-forward "^$")
+        (delete-region (point-min) (1+ (point)))
+        (setq buffer-read-only t)))))
 
-(defun wttrin-exec ()
+(defun wttrin ()
   "Display weather information."
   (interactive)
-  (let* ((name (generate-new-buffer-name (concat "wttr.in - " wttrin-query)))
-         (buf (get-buffer-create name)))
-    (switch-to-buffer buf))
-  (insert (xterm-color-filter (wttrin-fetch wttrin-query)))
-  (goto-char (point-min))
-  (re-search-forward "^$")
-  (delete-region (point-min) (1+ (point)))
-  (setq buffer-read-only t))
+  (wttrin-query (ido-completing-read "City name: " wttrin-default-cities nil nil)))
 
 (provide 'wttrin)
 
