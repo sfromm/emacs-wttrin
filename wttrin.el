@@ -14,16 +14,17 @@
 ;;; Code:
 (require 'url)
 (require 'xterm-color)
+(require 'ido)
 
 (defgroup wttrin nil
   "Emacs frontend for weather web service wttr.in."
   :prefix "wttrin-"
   :group 'comm)
 
-(defcustom wttring-default-city "Taipei"
-  "Specify a defauly city to get the weather information."
+(defcustom wttrin-default-cities '("Taipei" "Keelung" "Taichung" "Tainan")
+  "Specify default cities list to for quick completion"
   :group 'wttrin
-  :type 'string)
+  :type 'list)
 
 (defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
@@ -48,16 +49,10 @@ in another buffer."
         (delete-region (point-min) (1+ (point)))
         (setq buffer-read-only t)))))
 
-(defun wttrin (&optional force-ask)
-  "Display weather information.
-Add C-u prefix to force to ask city name."
+(defun wttrin ()
+  "Display weather information."
   (interactive)
-  (let* ((ask? (or current-prefix-arg force-ask))
-         (city-name (if ask?
-                        (read-from-minibuffer "City name: ")
-                      (or wttring-default-city (read-from-minibuffer "City name: ")))))
-    (wttrin-query city-name)))
-
+  (wttrin-query (ido-completing-read "City name: " wttrin-default-cities nil nil)))
 
 (provide 'wttrin)
 
