@@ -4,7 +4,7 @@
 ;; Author: Carl X. Su <bcbcarl@gmail.com>
 ;;         ono hiroko (kuanyui) <azazabc123@gmail.com>
 ;; Version: 0.2.0
-;; Package-Requires: ((emacs "24.4") (xterm-color "20150823.646"))
+;; Package-Requires: ((emacs "24.4") (xterm-color "1.0"))
 ;; Keywords: comm, weather, wttrin
 ;; URL: https://github.com/bcbcarl/emacs-wttrin
 
@@ -16,7 +16,6 @@
 
 (require 'url)
 (require 'xterm-color)
-(require 'ido)
 
 (defgroup wttrin nil
   "Emacs frontend for weather web service wttr.in."
@@ -45,7 +44,7 @@
       (let ((buffer (get-buffer-create (format "*wttr.in - %s*" city-name))))
         (switch-to-buffer buffer)
         (setq buffer-read-only nil)
-        (delete-region (point-min) (point-max))
+        (erase-buffer)
         (insert (xterm-color-filter raw-string))
         (goto-char (point-min))
         (re-search-forward "^$")
@@ -55,7 +54,7 @@
 (defun wttrin ()
   "Display weather information."
   (interactive)
-  (wttrin-query (ido-completing-read "City name: " wttrin-default-cities nil nil)))
+  (wttrin-query (completing-read "City name: " wttrin-default-cities nil nil)))
 
 (provide 'wttrin)
 
