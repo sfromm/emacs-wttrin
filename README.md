@@ -1,3 +1,5 @@
+[![MELPA][melpa-badge]][melpa-package]
+
 # wttrin.el
 
 Emacs frontend for weather web service [wttr.in].
@@ -20,3 +22,5 @@ MIT
 
 [wttr.in]: http://wttr.in/
 [screenshot]: wttrin.png
+[melpa-badge]: http://melpa.org/packages/wttrin-badge.svg
+[melpa-package]: http://melpa.org/#/wttrin
