@@ -51,6 +51,7 @@
         (delete-region (point-min) (1+ (point)))
         (setq buffer-read-only t)))))
 
+;;;###autoload
 (defun wttrin ()
   "Display weather information."
   (interactive)
