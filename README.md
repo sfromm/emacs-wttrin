@@ -1,4 +1,5 @@
 [![MELPA][melpa-badge]][melpa-package]
+[![MELPA Stable][melpa-stable-badge]][melpa-stable-package]
 
 # wttrin.el
 
@@ -24,3 +25,5 @@ MIT
 [screenshot]: wttrin.png
 [melpa-badge]: http://melpa.org/packages/wttrin-badge.svg
 [melpa-package]: http://melpa.org/#/wttrin
+[melpa-stable-badge]: http://stable.melpa.org/packages/wttrin-badge.svg
+[melpa-stable-package]: http://stable.melpa.org/#/wttrin
