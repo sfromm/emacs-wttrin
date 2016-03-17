@@ -1,5 +1,6 @@
 [![MELPA][melpa-badge]][melpa-package]
 [![MELPA Stable][melpa-stable-badge]][melpa-stable-package]
+[![Gitter][gitter-badge]][gitter-chatroom]
 
 # wttrin.el
 
@@ -27,3 +28,5 @@ MIT
 [melpa-package]: http://melpa.org/#/wttrin
 [melpa-stable-badge]: http://stable.melpa.org/packages/wttrin-badge.svg
 [melpa-stable-package]: http://stable.melpa.org/#/wttrin
+[gitter-badge]: https://badges.gitter.im/bcbcarl/emacs-wttrin.svg
+[gitter-chatroom]: https://gitter.im/bcbcarl/emacs-wttrin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
