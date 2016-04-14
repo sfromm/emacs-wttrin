@@ -36,6 +36,10 @@
          (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
+(defun wttrin-exit ()
+  (interactive)
+  (quit-window t))
+
 (defun wttrin-query (city-name)
   "Query weather of CITY-NAME via wttrin, and display the result in new buffer."
   (let ((raw-string (wttrin-fetch-raw-string city-name)))
@@ -49,6 +53,9 @@
         (goto-char (point-min))
         (re-search-forward "^$")
         (delete-region (point-min) (1+ (point)))
+        (use-local-map (make-sparse-keymap))
+        (local-set-key "q" 'wttrin-exit)
+        (local-set-key "g" 'wttrin)
         (setq buffer-read-only t)))))
 
 ;;;###autoload

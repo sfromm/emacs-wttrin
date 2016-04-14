@@ -16,6 +16,8 @@ Set a default cities list for completion:
 
 Then run `M-x wttrin` to get the information.
 
+When the weather is displayed you can press `q` to quit the buffer or `g` to query for another city.
+
 ![screenshot]
 
 ## LICENSE
