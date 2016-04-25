@@ -1,6 +1,7 @@
 [![MELPA][melpa-badge]][melpa-package]
 [![MELPA Stable][melpa-stable-badge]][melpa-stable-package]
 [![Gitter][gitter-badge]][gitter-chatroom]
+[![Build Status][travis-ci-badge]][travis-ci-status]
 
 # wttrin.el
 
@@ -32,3 +33,5 @@ MIT
 [melpa-stable-package]: http://stable.melpa.org/#/wttrin
 [gitter-badge]: https://badges.gitter.im/bcbcarl/emacs-wttrin.svg
 [gitter-chatroom]: https://gitter.im/bcbcarl/emacs-wttrin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[travis-ci-badge]: https://travis-ci.org/bcbcarl/emacs-wttrin.svg?branch=master
+[travis-ci-status]: https://travis-ci.org/bcbcarl/emacs-wttrin
