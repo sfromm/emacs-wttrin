@@ -27,9 +27,16 @@
   :group 'wttrin
   :type 'list)
 
+(defcustom wttrin-default-accept-language '("Accept-Language" . "en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4")
+  "Specify default HTTP request Header for Accept-Language."
+  :group 'wttrin
+  :type '(list)
+  )
+
 (defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
   (let ((url-request-extra-headers '(("User-Agent" . "curl"))))
+    (add-to-list 'url-request-extra-headers wttrin-default-accept-language)
     (with-current-buffer
         (url-retrieve-synchronously
          (concat "http://wttr.in/" query)
