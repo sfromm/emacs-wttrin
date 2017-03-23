@@ -15,6 +15,12 @@ Set a default cities list for completion:
 (setq wttrin-default-cities '("Taipei" "Tainan"))
 ```
 
+You can also specify default HTTP request Header for Accept-Language:
+
+```elisp
+(setq wttrin-default-accept-language '("Accept-Language" . "zh-TW"))
+```
+
 Then run `M-x wttrin` to get the information.
 
 When the weather is displayed you can press `q` to quit the buffer or `g` to query for another city.
