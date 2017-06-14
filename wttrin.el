@@ -66,10 +66,14 @@
         (setq buffer-read-only t)))))
 
 ;;;###autoload
-(defun wttrin ()
-  "Display weather information."
-  (interactive)
-  (wttrin-query (completing-read "City name: " wttrin-default-cities nil nil)))
+(defun wttrin (city)
+  "Display weather information for CITY."
+  (interactive
+   (list
+    (completing-read "City name: " wttrin-default-cities nil nil
+                     (when (= (length wttrin-default-cities) 1)
+                       (car wttrin-default-cities)))))
+  (wttrin-query city))
 
 (provide 'wttrin)
 
