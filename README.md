@@ -32,6 +32,7 @@ When the weather is displayed you can press `q` to quit the buffer or `g` to que
 MIT
 
 [wttr.in]: http://wttr.in/
+[wttrin-help]: http://wttr.in/:help
 [screenshot]: wttrin.png
 [melpa-badge]: http://melpa.org/packages/wttrin-badge.svg
 [melpa-package]: http://melpa.org/#/wttrin
