@@ -15,10 +15,10 @@ Set a default cities list for completion:
 (setq wttrin-default-cities '("Taipei" "Tainan"))
 ```
 
-You can also specify default HTTP request Header for Accept-Language:
+You can also specify the language requested:
 
 ```elisp
-(setq wttrin-default-accept-language '("Accept-Language" . "zh-TW"))
+(setq wttrin-language "en-US")
 ```
 
 Then run `M-x wttrin` to get the information.
